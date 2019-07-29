@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Keyword: Python, Java, Javascript, Big Data</h1>
+
+<style>
+.topleft {
+  position: absolute;
+  top: 100px;
+  left: 160px;
+  font-size: 18px;
+}
+</style>
+
+<div id="svg_lan_chart" class="topleft" style="border:1px solid black;"></div>
+
+
+<style>
+
+    .bar{
+      fill: steelblue;
+    }
+  
+    .bar:hover{
+      fill: brown;
+    }
+  
+    .axis {
+      font: 10px sans-serif;
+    }
+  
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+  
+    </style>
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+
+language = [],
+count = [];
+
+var json_data = [];
+//var json_data = JSON.parse("{{ lang_data }}");
+"{% for lang in lang_data %}"
+json_data.push(JSON.parse('{{ lang | escapejs }}'));
+"{% endfor %}"
+//var json_data = JSON.parse('{{ lang_data | escapejs }}');
+console.log(json_data);
+
+
+
+
+d3.select("button").on("click",function () {
+    mydata = clone(data);
+    mydata.sort(desc);
+        d3.selectAll("rect.bar")
+        .data(mydata)  // We're rebinding at this level rather than taxes level because the reset value is not propagating down to the <rect class="bar moved"> by itself.
+      .attr("width", function(d) { console.log(x(d.value)); return x(d.value); });      
+    drawtable();
+});
+
+
+window.onload = function () {
+    setChart();
+
+    var myVar = setInterval(myTimer, 3000);
+    function myTimer() {
+
+      console.log("start");
+      $.ajax({
+        tpye: "POST",
+        url: "/fcontact",
+        success: function (data) {
+        var json_data = [];
+          for(var i = 0; i < lang_data.length; i ++) {
+            json_data.push(JSON.parse(lang_data[i]));
+          }
+          redraw(settings)
+        }
+      });
+
+      console.log("end");
+    };
+  };
+</script>
+
+{% endblock %}

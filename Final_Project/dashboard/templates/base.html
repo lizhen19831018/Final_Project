@@ -1,0 +1,54 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Home - Wisdom Pet Medicine</title>
+        <link rel="stylesheet" id="ample-style-css" href="{% static 'stylesheet/style.css' %}" type="text/css" media="all">
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+        <style>
+            canvas {
+                -moz-user-select: none;
+                -webkit-user-select: none;
+                -ms-user-select: none;
+            }
+            footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body class="wide">
+        <div id="page" class="hfeed site">
+            <header>
+                <div class="header">
+                    <div class="main-head-wrap inner-wrap clearfix">
+                        <div id="header-logo-image">
+                            <a href="/">
+                                <img src="{% static 'images/logo.png' %}" alt="Wisdom Pet Medicine">
+                            </a>
+                        </div>
+                        <div id="header-text" class="">
+                            <p>Programming Sample</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <main>
+            <div class="main-wrapper">
+                <div class="single-page clearfix">
+                    <div class="inner-wrap">
+                        <div>
+                        {% block content %}
+                        {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        </div>
+        <script src="{% static 'javascript/main.js' %}"></script>
+    </body>
+</html>
